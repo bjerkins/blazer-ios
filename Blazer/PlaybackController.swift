@@ -32,9 +32,11 @@ class PlaybackController:
         // Do any additional setup after loading the view, typically from a nib.
     
         self.setupSocketHandlers()
-        self.socket.connect()
+//        self.socket.connect()
         self.socket.nsp = "client"
         self.socket.joinNamespace()
+        
+        self.browseNetwork()
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,7 +85,6 @@ class PlaybackController:
     private func setupSocketHandlers() {
         
         self.socket.on("playtrack") {data, ack in
-            println("PLAY TRACK")
             let json = JSON(data![0])
             let track = json["track"].string
             
@@ -126,6 +127,11 @@ class PlaybackController:
             self.serverNameHeading.text = "CONNECT TO"
             self.connectionIndicatorImage.hidden = true
         }
+    }
+    
+    private func browseNetwork() {
+        var discovery = NetworkDiscovery()
+        discovery.discover()
     }
 }
 

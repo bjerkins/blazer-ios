@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1816E1241B91A1C500EECD2E /* SpotifyLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816E1231B91A1C500EECD2E /* SpotifyLogin.swift */; };
+		18177C921B9618850033E824 /* NetworkDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18177C911B9618850033E824 /* NetworkDiscovery.swift */; };
 		186AEAC51B94690400B32E8C /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AEAC41B94690400B32E8C /* LoginController.swift */; };
 		18E485151B8FBD9A00E0EDE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E485141B8FBD9A00E0EDE9 /* AppDelegate.swift */; };
 		18E485171B8FBD9A00E0EDE9 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E485161B8FBD9A00E0EDE9 /* PlaybackController.swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		1816E1231B91A1C500EECD2E /* SpotifyLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyLogin.swift; sourceTree = "<group>"; };
+		18177C911B9618850033E824 /* NetworkDiscovery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDiscovery.swift; sourceTree = "<group>"; };
 		186AEAC41B94690400B32E8C /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		18E4850F1B8FBD9A00E0EDE9 /* Blazer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blazer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18E485131B8FBD9A00E0EDE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -98,6 +100,14 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		18177C901B9618700033E824 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				18177C911B9618850033E824 /* NetworkDiscovery.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 		18E485061B8FBD9A00E0EDE9 = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +133,7 @@
 		18E485111B8FBD9A00E0EDE9 /* Blazer */ = {
 			isa = PBXGroup;
 			children = (
+				18177C901B9618700033E824 /* Services */,
 				1816E1271B91A20F00EECD2E /* Controllers */,
 				1816E1261B91A1F800EECD2E /* Views */,
 				1816E1251B91A1CC00EECD2E /* Protocols */,
@@ -330,6 +341,7 @@
 			files = (
 				1816E1241B91A1C500EECD2E /* SpotifyLogin.swift in Sources */,
 				186AEAC51B94690400B32E8C /* LoginController.swift in Sources */,
+				18177C921B9618850033E824 /* NetworkDiscovery.swift in Sources */,
 				18E485151B8FBD9A00E0EDE9 /* AppDelegate.swift in Sources */,
 				18E485171B8FBD9A00E0EDE9 /* PlaybackController.swift in Sources */,
 			);
