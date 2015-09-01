@@ -13,13 +13,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var loginDelegate: SpotifyLoginDelegate?
+    var loginViewController: UIViewController?
+    var playbackController: UIViewController?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        var playbackController = self.window?.rootViewController as? PlaybackController
+        // set login delegate 
+        self.loginDelegate = self.window?.rootViewController as? PlaybackController
         
-        self.loginDelegate = playbackController
+        let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        self.playbackController = storyBoard.instantiateInitialViewController() as? UIViewController
+        self.loginViewController = storyBoard.instantiateViewControllerWithIdentifier("LoginViewController") as? UIViewController
+        
+        self.window?.rootViewController = playbackController
+        self.window?.makeKeyAndVisible()
+        
+        // check spotify auth token
+        var auth = SPTAuth.defaultInstance()
+        
+        if auth.session == nil || !auth.session.isValid() { // no token received
+           // self.playbackController?.presentViewController(self.loginViewController!, animated: true, completion: nil)
+        }
         
         return true
     }
@@ -55,6 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             self.loginDelegate?.spotifySessionInitialized(session)
+            self.playbackController?.dismissViewControllerAnimated(true, completion: nil)
         }
         
         if SPTAuth.defaultInstance().canHandleURL(url) {

@@ -5,6 +5,63 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Login Controller-->
+        <scene sceneID="RTu-DQ-s9W">
+            <objects>
+                <viewController storyboardIdentifier="LoginViewController" id="kzU-4c-b7U" customClass="LoginController" customModule="Blazer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hju-Hg-KWG"/>
+                        <viewControllerLayoutGuide type="bottom" id="00F-93-qUC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DKH-Jt-nm1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BLZER" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffR-1n-9X5" userLabel="Heading">
+                                <rect key="frame" x="123" y="143" width="76" height="30"/>
+                                <color key="backgroundColor" red="0.21176470589999999" green="0.2666666667" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="25"/>
+                                <color key="textColor" red="0.89411764709999997" green="0.87450980389999999" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BLAZE UP YOUR SPEAKERS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h9a-xe-dEM" userLabel="Sub Heading">
+                                <rect key="frame" x="80" y="204" width="160" height="14"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                <color key="textColor" red="0.89411764709999997" green="0.87450980389999999" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Jp-GE-ThC" userLabel="Login">
+                                <rect key="frame" x="16" y="473" width="288" height="50"/>
+                                <color key="backgroundColor" red="0.18431372549019609" green="0.34901960784313724" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Oj1-Hc-ZJF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                <state key="normal" title="LOGIN WITH SPOTIFY">
+                                    <color key="titleColor" red="0.6588235294117647" green="0.87058823529411766" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="login:" destination="kzU-4c-b7U" eventType="touchUpInside" id="F8j-Nk-Ky8"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.21176470589999999" green="0.2666666667" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="h9a-xe-dEM" secondAttribute="centerX" id="1I1-3V-2eb"/>
+                            <constraint firstItem="ffR-1n-9X5" firstAttribute="top" secondItem="hju-Hg-KWG" secondAttribute="bottom" constant="123" id="37d-E4-Vpa"/>
+                            <constraint firstItem="1Jp-GE-ThC" firstAttribute="leading" secondItem="DKH-Jt-nm1" secondAttribute="leadingMargin" id="5Xs-ef-tw5"/>
+                            <constraint firstItem="00F-93-qUC" firstAttribute="top" secondItem="1Jp-GE-ThC" secondAttribute="bottom" constant="45" id="BKi-Qp-o5l"/>
+                            <constraint firstItem="1Jp-GE-ThC" firstAttribute="trailing" secondItem="DKH-Jt-nm1" secondAttribute="trailingMargin" id="M5q-ew-yBI"/>
+                            <constraint firstItem="h9a-xe-dEM" firstAttribute="top" secondItem="ffR-1n-9X5" secondAttribute="bottom" constant="31" id="oa8-sR-WaX"/>
+                            <constraint firstAttribute="centerX" secondItem="ffR-1n-9X5" secondAttribute="centerX" constant="-0.5" id="vNL-35-CcM"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JHD-8K-xyT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-38" y="-243"/>
+        </scene>
         <!--Playback Controller-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
@@ -40,18 +97,25 @@
                                 <color key="textColor" red="0.89411764709999997" green="0.87450980389999999" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONNECTED TO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMY-8o-GvO" userLabel="Connected To Header">
-                                <rect key="frame" x="113" y="442" width="94" height="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONNECT TO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMY-8o-GvO" userLabel="Connected To Header">
+                                <rect key="frame" x="121" y="442" width="78" height="14"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                 <color key="textColor" red="0.89411764709999997" green="0.87450980389999999" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIGHTWORLD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5e-DL-m9b" userLabel="Connected To">
-                                <rect key="frame" x="98" y="489" width="124" height="23"/>
+                                <rect key="frame" x="98" y="476" width="124" height="23"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
                                 <color key="textColor" red="0.89411764709999997" green="0.87450980389999999" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="connection-indicator" translatesAutoresizingMaskIntoConstraints="NO" id="duC-qA-xjG" userLabel="Connection Indicator">
+                                <rect key="frame" x="153" y="520" width="15" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="CPZ-0F-uE0"/>
+                                    <constraint firstAttribute="width" constant="15" id="Dqc-q8-xJB"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.21176470588235294" green="0.26666666666666666" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -60,22 +124,31 @@
                             <constraint firstItem="guO-YN-YlX" firstAttribute="centerY" secondItem="6R9-G2-Kxg" secondAttribute="centerY" constant="-0.5" id="GPo-v3-jFF"/>
                             <constraint firstItem="dd1-C2-MmM" firstAttribute="top" secondItem="6R9-G2-Kxg" secondAttribute="bottom" constant="32" id="IeW-hi-9Co"/>
                             <constraint firstAttribute="centerX" secondItem="6R9-G2-Kxg" secondAttribute="centerX" id="N3j-Hj-BzK"/>
+                            <constraint firstItem="duC-qA-xjG" firstAttribute="top" secondItem="A5e-DL-m9b" secondAttribute="bottom" constant="21" id="QH3-NO-1zF"/>
                             <constraint firstAttribute="centerX" secondItem="A5e-DL-m9b" secondAttribute="centerX" id="ReA-pi-aQC"/>
-                            <constraint firstItem="A5e-DL-m9b" firstAttribute="top" secondItem="AMY-8o-GvO" secondAttribute="bottom" constant="33" id="V6w-Sl-rtC"/>
+                            <constraint firstItem="A5e-DL-m9b" firstAttribute="top" secondItem="AMY-8o-GvO" secondAttribute="bottom" constant="20" id="V6w-Sl-rtC"/>
                             <constraint firstItem="guO-YN-YlX" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="-16" id="Vet-tq-xkb"/>
                             <constraint firstItem="6R9-G2-Kxg" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="25" id="WHR-vh-Xbl"/>
                             <constraint firstAttribute="centerX" secondItem="AMY-8o-GvO" secondAttribute="centerX" id="kp6-lx-QtD"/>
                             <constraint firstAttribute="centerX" secondItem="dd1-C2-MmM" secondAttribute="centerX" id="lAi-Uf-tAo"/>
+                            <constraint firstAttribute="centerX" secondItem="duC-qA-xjG" secondAttribute="centerX" constant="-0.5" id="z1j-1V-hBa"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
+                    <connections>
+                        <outlet property="connectionIndicatorImage" destination="duC-qA-xjG" id="89s-Ps-Jd4"/>
+                        <outlet property="nowPlayingHeadingLabel" destination="dd1-C2-MmM" id="kc9-zY-Qia"/>
+                        <outlet property="serverNameHeading" destination="AMY-8o-GvO" id="l9A-Ro-MNb"/>
+                        <outlet property="serverNameLabel" destination="A5e-DL-m9b" id="4zK-Ez-oeI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="116" y="-169"/>
+            <point key="canvasLocation" x="438" y="-243"/>
         </scene>
     </scenes>
     <resources>
+        <image name="connection-indicator" width="50" height="50"/>
         <image name="first" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

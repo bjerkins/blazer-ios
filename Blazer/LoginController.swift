@@ -9,11 +9,25 @@
 import UIKit
 
 class LoginController: UIViewController {
+    
+    let clientId = "68dadb65de254d06b58afe049b562d45"
+    let callbackURL = "blazer://callback"
+    let scopes = [
+        SPTAuthUserReadPrivateScope,
+        SPTAuthUserReadEmailScope,
+        SPTAuthStreamingScope
+    ]
+    var spotifyAuthentication = SPTAuth.defaultInstance()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        self.spotifyAuthentication.clientID = self.clientId
+        self.spotifyAuthentication.redirectURL = NSURL(string: self.callbackURL)
+        self.spotifyAuthentication.requestedScopes = self.scopes
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,6 +36,10 @@ class LoginController: UIViewController {
     }
     
 
+    @IBAction func login(sender: UIButton) {
+        UIApplication.sharedApplication().openURL(SPTAuth.defaultInstance().loginURL)
+    }
+    
     /*
     // MARK: - Navigation
 

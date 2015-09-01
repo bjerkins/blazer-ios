@@ -16,54 +16,30 @@ class PlaybackController:
     SPTAudioStreamingDelegate,
     SPTAudioStreamingPlaybackDelegate {
     
-    let socket = SocketIOClient(socketURL: "10.1.16.15:8080")
-    let clientId = "68dadb65de254d06b58afe049b562d45"
-    let callbackURL = "blazer://callback"
-    let scopes = [
-        SPTAuthUserReadPrivateScope,
-        SPTAuthUserReadEmailScope,
-        SPTAuthStreamingScope
-    ]
-    
+    let socket = SocketIOClient(socketURL: "10.1.16.18:8080")
     var spotifyAuthentication = SPTAuth.defaultInstance()
     var player: SPTAudioStreamingController?
     
+    // outlets
+    
+    @IBOutlet weak var nowPlayingHeadingLabel: UILabel!
+    @IBOutlet weak var serverNameHeading: UILabel!
+    @IBOutlet weak var serverNameLabel: UILabel!
+    @IBOutlet weak var connectionIndicatorImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     
-        spotifyAuthentication.clientID = self.clientId
-        spotifyAuthentication.redirectURL = NSURL(string: self.callbackURL)
-        spotifyAuthentication.requestedScopes = self.scopes
-        
-        self.addSocketHandlers()
+        self.setupSocketHandlers()
         self.socket.connect()
         self.socket.nsp = "client"
         self.socket.joinNamespace()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        if spotifyAuthentication.session == nil { // no token received
-            
-        } else if spotifyAuthentication.session.isValid() { // we have token
-
-        } else { // token expired
-            
-        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: IBActions
-    
-    @IBAction func login(sender: UIButton) {
-        UIApplication.sharedApplication().openURL(SPTAuth.defaultInstance().loginURL)
     }
     
     
@@ -104,11 +80,7 @@ class PlaybackController:
     
     // MARK: Private helper functions
     
-    private func addSocketHandlers() {
-        
-        self.socket.on("status") {data, ack in
-            println("status")
-        }
+    private func setupSocketHandlers() {
         
         self.socket.on("playtrack") {data, ack in
             println("PLAY TRACK")
@@ -141,9 +113,19 @@ class PlaybackController:
         }
         
         self.socket.on("connect") {data, ack in
-            println("socket connected")
+            self.serverNameHeading.text = "CONNECTED TO"
+            self.connectionIndicatorImage.hidden = false
         }
-
+        
+        self.socket.on("disconnect") {data, ack in
+            self.serverNameHeading.text = "CONNECT TO"
+            self.connectionIndicatorImage.hidden = true
+        }
+        
+        self.socket.on("error") {data, ack in
+            self.serverNameHeading.text = "CONNECT TO"
+            self.connectionIndicatorImage.hidden = true
+        }
     }
 }
 
