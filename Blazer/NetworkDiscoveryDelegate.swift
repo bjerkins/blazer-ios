@@ -21,14 +21,38 @@ class NetworkServiceDelegate : NSObject, NSNetServiceDelegate {
     
     func netServiceDidResolveAddress(sender: NSNetService) {
         println("netServiceDidResolve:\(sender)");
+        var address = self.translateSockAddress(sender)
+        var userInfo = [
+            "address": address!,
+            "serverName": sender.name
+        ]
+        NSNotificationCenter.defaultCenter().postNotificationName("networkFound", object: nil, userInfo: userInfo)
+        
     }
     
     func netServiceDidStop(sender: NSNetService) {
         println("netServiceDidStopService:\(sender)");
     }
+    
+    private func translateSockAddress(sender: NSNetService) -> String? {
+        if let data: AnyObject = sender.addresses?.first {
+            var storage = sockaddr_storage()
+            data.getBytes(&storage, length: sizeof(sockaddr_storage))
+            
+            if Int32(storage.ss_family) == AF_INET {
+                let addr4 = withUnsafePointer(&storage) { UnsafePointer<sockaddr_in>($0).memory }
+                
+                var address = String(CString: inet_ntoa(addr4.sin_addr), encoding: NSASCIIStringEncoding)
+                var port = sender.port
+                
+                return "\(address!):\(port)"
+            }
+        }
+        return nil
+    }
 }
 
-class NetworkDiscoveryDelegate : NSObject, NSNetServiceBrowserDelegate {
+class NetworkServiceBrowserDelegate : NSObject, NSNetServiceBrowserDelegate {
     
     var serviceDelegate: NetworkServiceDelegate?
     var services: [NSNetService]?
@@ -37,27 +61,21 @@ class NetworkDiscoveryDelegate : NSObject, NSNetServiceBrowserDelegate {
         println("starting search")
     }
     
-    func netServiceBrowser(netServiceBrowser: NSNetServiceBrowser,
-        didFindService netService: NSNetService,
+    func netServiceBrowser(netServiceBrowser: NSNetServiceBrowser, didFindService netService: NSNetService,
         moreComing moreServicesComing: Bool) {
             
             if self.services == nil {
                 self.services = []
             }
             
+            // initialize the service delegate
             self.serviceDelegate = NetworkServiceDelegate()
             
+            // set the netservice delgate and resolve it
             netService.delegate = self.serviceDelegate
-            
             netService.resolveWithTimeout(5)
             
             self.services?.append(netService)
-    }
-    
-    func netServiceBrowser(netServiceBrowser: NSNetServiceBrowser,
-        didRemoveService netService: NSNetService,
-        moreComing moreServicesComing: Bool) {
-            println("netServiceDidRemoveService")
     }
     
     func netServiceBrowser(netServiceBrowser: NSNetServiceBrowser,
