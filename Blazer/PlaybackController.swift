@@ -19,6 +19,7 @@ class PlaybackController:
     let socket = SocketIOClient(socketURL: "10.1.16.18:8080")
     var spotifyAuthentication = SPTAuth.defaultInstance()
     var player: SPTAudioStreamingController?
+    var discovery: NetworkDiscovery?
     
     // outlets
     
@@ -32,11 +33,12 @@ class PlaybackController:
         // Do any additional setup after loading the view, typically from a nib.
     
         self.setupSocketHandlers()
-//        self.socket.connect()
+        self.socket.connect()
         self.socket.nsp = "client"
         self.socket.joinNamespace()
         
-        self.browseNetwork()
+        self.discovery = NetworkDiscovery()
+        self.discovery?.discover()
     }
 
     override func didReceiveMemoryWarning() {
@@ -127,11 +129,6 @@ class PlaybackController:
             self.serverNameHeading.text = "CONNECT TO"
             self.connectionIndicatorImage.hidden = true
         }
-    }
-    
-    private func browseNetwork() {
-        var discovery = NetworkDiscovery()
-        discovery.discover()
     }
 }
 

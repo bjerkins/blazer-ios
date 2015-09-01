@@ -8,11 +8,11 @@
 
 import Foundation
 
-class Fleh : NSObject, NSNetServiceDelegate {
-    
+class NetworkServiceDelegate : NSObject, NSNetServiceDelegate {
     
     func netServiceWillResolve(sender: NSNetService) {
         println("netServiceWillResolve:\(sender)");
+        println("addresses: \(sender.addresses)")
     }
     
     func netService(sender: NSNetService, didNotResolve errorDict: [NSObject : AnyObject]) {
@@ -30,22 +30,28 @@ class Fleh : NSObject, NSNetServiceDelegate {
 
 class NetworkDiscoveryDelegate : NSObject, NSNetServiceBrowserDelegate {
     
-    func netServiceBrowser(netServiceBrowser: NSNetServiceBrowser,
-        didFindDomain domainName: String,
-        moreComing moreDomainsComing: Bool) {
-            println("netServiceDidFindDomain")
-    }
+    var serviceDelegate: NetworkServiceDelegate?
+    var services: [NSNetService]?
     
-    func netServiceBrowser(netServiceBrowser: NSNetServiceBrowser,
-        didRemoveDomain domainName: String,
-        moreComing moreDomainsComing: Bool) {
-            println("netServiceDidRemoveDomain")
+    func netServiceBrowserWillSearch(aNetServiceBrowser: NSNetServiceBrowser) {
+        println("starting search")
     }
     
     func netServiceBrowser(netServiceBrowser: NSNetServiceBrowser,
         didFindService netService: NSNetService,
         moreComing moreServicesComing: Bool) {
-            println("netServiceDidFindService")
+            
+            if self.services == nil {
+                self.services = []
+            }
+            
+            self.serviceDelegate = NetworkServiceDelegate()
+            
+            netService.delegate = self.serviceDelegate
+            
+            netService.resolveWithTimeout(5)
+            
+            self.services?.append(netService)
     }
     
     func netServiceBrowser(netServiceBrowser: NSNetServiceBrowser,

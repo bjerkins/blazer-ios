@@ -11,15 +11,16 @@ import Foundation
 class NetworkDiscovery: NSObject {
     
     var netServiceBrowser: NSNetServiceBrowser?
+    var netServiceBrowserDelegate:NetworkDiscoveryDelegate?
     
     override init() {
-        super.init()
+        self.netServiceBrowser = NSNetServiceBrowser()
+        self.netServiceBrowserDelegate = NetworkDiscoveryDelegate()
+        self.netServiceBrowser?.delegate = netServiceBrowserDelegate
     }
     
     func discover() {
-        self.netServiceBrowser = NSNetServiceBrowser()
-        self.netServiceBrowser?.delegate = NetworkDiscoveryDelegate()
-        self.netServiceBrowser?.searchForServicesOfType("_http._tcp.", inDomain: "")
+        self.netServiceBrowser!.searchForServicesOfType("_http._tcp.", inDomain: "")
     }
     
 //    func netServiceBrowser(aNetServiceBrowser: NSNetServiceBrowser, didFindService aNetService: NSNetService, moreComing: Bool) {

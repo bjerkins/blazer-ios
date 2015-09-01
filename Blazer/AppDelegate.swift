@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var loginViewController: UIViewController?
     var playbackController: UIViewController?
 
+
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -36,6 +37,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            // self.playbackController?.presentViewController(self.loginViewController!, animated: true, completion: nil)
         }
         
+        let BM_DOMAIN = ""
+        let BM_TYPE = "_http._tcp."
+        
+        /// Net service browser.
+//        nsb = NSNetServiceBrowser()
+//        nsbdel = NetworkDiscoveryDelegate() //see bellow
+//        nsb?.delegate = nsbdel
+//        nsb?.searchForServicesOfType(BM_TYPE, inDomain: BM_DOMAIN)
+//        
+//        var discovery = NetworkDiscovery()
+//        discovery.discover()
+//        
         return true
     }
 
