@@ -8,53 +8,29 @@
 
 import Foundation
 
-class NetworkDiscovery: NSObject, NSNetServiceBrowserDelegate, NSNetServiceDelegate {
+class NetworkDiscovery: NSObject {
     
     var netServiceBrowser: NSNetServiceBrowser?
     
     override init() {
-        self.netServiceBrowser = NSNetServiceBrowser()
         super.init()
-        self.netServiceBrowser?.delegate = self
     }
     
     func discover() {
+        self.netServiceBrowser = NSNetServiceBrowser()
+        self.netServiceBrowser?.delegate = NetworkDiscoveryDelegate()
         self.netServiceBrowser?.searchForServicesOfType("_http._tcp.", inDomain: "")
-        let runloop = NSRunLoop.currentRunLoop()
-        runloop.run()
     }
     
-    func netServiceBrowser(aNetServiceBrowser: NSNetServiceBrowser, didFindDomain domainString: String, moreComing: Bool) {
-        println(domainString)
-    }
+//    func netServiceBrowser(aNetServiceBrowser: NSNetServiceBrowser, didFindService aNetService: NSNetService, moreComing: Bool) {
+//        println("found service \(aNetService)");
+//        aNetService.delegate = self
+//        aNetService.resolveWithTimeout(1)
+//        let runloop = NSRunLoop.currentRunLoop()
+//        runloop.run()
+//    }
     
-    func netServiceBrowser(aNetServiceBrowser: NSNetServiceBrowser, didFindService aNetService: NSNetService, moreComing: Bool) {
-        println("found service \(aNetService)");
-        aNetService.delegate = self
-        aNetService.resolveWithTimeout(1)
-        let runloop = NSRunLoop.currentRunLoop()
-        runloop.run()
-    }
-    
-    func netServiceBrowserWillSearch(aNetServiceBrowser: NSNetServiceBrowser) {
-        println("starting search but wtf")
-    }
-    
-    func netServiceBrowserDidStopSearch(aNetServiceBrowser: NSNetServiceBrowser) {
-        println("stopped searching")
-    }
-    
-    func netServiceBrowser(aNetServiceBrowser: NSNetServiceBrowser, didNotSearch errorDict: [NSObject : AnyObject]) {
-        println("did not search")
-    }
-    
-    func netServiceBrowser(aNetServiceBrowser: NSNetServiceBrowser, didRemoveService aNetService: NSNetService, moreComing: Bool) {
-        println("did remove service")
-    }
-    
-    func netServiceDidResolveAddress(sender: NSNetService) {
-        println("did resolve \(sender.addresses)")
-        
+    private func translateSockAddress(sender: NSNetService) {
         if let data: AnyObject = sender.addresses?.first {
             var storage = sockaddr_storage()
             data.getBytes(&storage, length: sizeof(sockaddr_storage))
@@ -67,15 +43,6 @@ class NetworkDiscovery: NSObject, NSNetServiceBrowserDelegate, NSNetServiceDeleg
             }
         }
     }
-    
-    func netServiceWillResolve(sender: NSNetService) {
-        println("hoping to resolve this \(sender)")
-    }
-    
-    func netService(sender: NSNetService, didNotResolve errorDict: [NSObject : AnyObject]) {
-        println("did not resolve \(sender) because \(errorDict)")
-    }
-    
     
     
 }
