@@ -16,17 +16,29 @@ class PlaybackController:
     SPTAudioStreamingDelegate,
     SPTAudioStreamingPlaybackDelegate {
     
+    // MARK: Properties
+    
     let socket = SocketIOClient(socketURL: "10.1.16.18:8080")
     var spotifyAuthentication = SPTAuth.defaultInstance()
     var player: SPTAudioStreamingController?
-    var discovery: NetworkDiscovery?
+    var networkDiscovery: NetworkDiscovery?
+    var availableNetworks: [[String: String]]?
     
-    // outlets
+
+    // MARK: outlets
+    
     
     @IBOutlet weak var nowPlayingHeadingLabel: UILabel!
     @IBOutlet weak var serverNameHeading: UILabel!
     @IBOutlet weak var serverNameLabel: UILabel!
     @IBOutlet weak var connectionIndicatorImage: UIImageView!
+    
+    @IBOutlet weak var availableNetworksScrollViewContainer: UIView!
+    @IBOutlet weak var availableNetworksContentView: UIView!
+    @IBOutlet weak var availableNetworksContentViewWidthConstraint: NSLayoutConstraint!
+    
+    // MARK: Overrides
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,17 +49,21 @@ class PlaybackController:
         self.socket.nsp = "client"
         self.socket.joinNamespace()
         
-        self.discovery = NetworkDiscovery()
-        self.discovery?.discover()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.networkDiscovery = NetworkDiscovery()
+        self.networkDiscovery?.discover()
+        
+        // temporary stuff, lets say that we found two networks
+        self.availableNetworks = [
+            ["address": "10.0.1.3:3000", "serverName": "Lightworld"],
+            ["address": "10.0.1.3:3000", "serverName": "Death Star"]
+        ]
+        
+        self.setupScrollViewForAvailableNetworks()
     }
     
     
     // MARK: SpotifyLoginDelegate methods
+    
     
     func spotifySessionInitialized(session: SPTSession) {
         
@@ -129,6 +145,10 @@ class PlaybackController:
             self.serverNameHeading.text = "CONNECT TO"
             self.connectionIndicatorImage.hidden = true
         }
+    }
+    
+    func setupScrollViewForAvailableNetworks() {
+
     }
 }
 
