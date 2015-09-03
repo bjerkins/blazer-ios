@@ -170,6 +170,8 @@ class PlaybackController:
         
         self.socket!.on("error") {data, ack in
             self.serverNameHeading.text = "CONNECT TO"
+            self.connectedNetworkLabel?.setDisconnectedColor()
+            self.connectedNetworkLabel = nil
         }
     }
     
