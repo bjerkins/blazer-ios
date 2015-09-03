@@ -15,51 +15,62 @@ class PlaybackController:
     SpotifyLoginDelegate,
     SPTAudioStreamingDelegate,
     SPTAudioStreamingPlaybackDelegate,
-    UIScrollViewDelegate {
+    UIScrollViewDelegate,
+    NetworkFoundDelegate,
+    UIGestureRecognizerDelegate {
     
     // MARK: Properties
     
-    let socket = SocketIOClient(socketURL: "10.1.16.18:8080")
+    var socket: SocketIOClient?
     var spotifyAuthentication = SPTAuth.defaultInstance()
     var player: SPTAudioStreamingController?
     var networkDiscovery: NetworkDiscovery?
-    var availableNetworks: [[String: String]]?
+    var availableNetworks: [AvailableNetwork]?
+    var connectedNetworkLabel: NetworkLabel?
     
 
     // MARK: outlets
-    
     
     @IBOutlet weak var nowPlayingHeadingLabel: UILabel!
     @IBOutlet weak var serverNameHeading: UILabel!
     @IBOutlet weak var availableNetworksScrollView: UIScrollView!
     @IBOutlet weak var availableNetworksPageControl: UIPageControl!
-    
+    @IBOutlet weak var availableNetworksSearchingLabel: UILabel!
+
     // MARK: Overrides
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-    
-        self.setupSocketHandlers()
-        self.socket.connect()
-        self.socket.nsp = "client"
-        self.socket.joinNamespace()
+
+        self.availableNetworks = []
         
         self.networkDiscovery = NetworkDiscovery()
+        self.networkDiscovery?.delegate = self
         self.networkDiscovery?.discover()
         
-        // temporary stuff, lets say that we found two networks
-        self.availableNetworks = [
-            ["address": "10.0.1.3:3000", "serverName": "Lightworld"],
-            ["address": "10.0.1.3:3000", "serverName": "Death Star"]
-        ]
-        
-        self.availableNetworksPageControl.numberOfPages = self.availableNetworks!.count
-        
-        self.setupScrollViewForAvailableNetworks()
-        
         self.availableNetworksScrollView.delegate = self
+    }
+    
+    // MARK: NetworkFound Delegate
+    
+    func didFindNetwork(network: AvailableNetwork) {
+        self.availableNetworks?.append(network)
+        self.availableNetworksPageControl.numberOfPages = self.availableNetworks!.count
+        self.availableNetworksSearchingLabel.hidden = true
+        self.setupScrollViewForAvailableNetworks()
+    }
+    
+
+    // MARK: ScrollView Delegates
+    
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let pageWidth:CGFloat = CGRectGetWidth(scrollView.frame)
+        var currentPage:CGFloat = floor((scrollView.contentOffset.x-pageWidth/2)/pageWidth)+1
+        // Change the indicator
+        self.availableNetworksPageControl.currentPage = Int(currentPage);
     }
     
     
@@ -99,11 +110,21 @@ class PlaybackController:
         println("audio stream: playback status changed")
     }
     
+
     // MARK: Private helper functions
+
+    private func connectToSocket() {
+        var network = self.availableNetworks![self.availableNetworksPageControl.currentPage]
+        self.socket = SocketIOClient(socketURL: network.address!)
+        self.setupSocketHandlers()
+        self.socket!.connect()
+        self.socket!.nsp = "client"
+        self.socket!.joinNamespace()
+    }
     
     private func setupSocketHandlers() {
         
-        self.socket.on("playtrack") {data, ack in
+        self.socket!.on("playtrack") {data, ack in
             let json = JSON(data![0])
             let track = json["track"].string
             
@@ -132,20 +153,23 @@ class PlaybackController:
             })
         }
         
-        self.socket.on("connect") {data, ack in
+        self.socket!.on("connect") {data, ack in
             self.serverNameHeading.text = "CONNECTED TO"
+            self.connectedNetworkLabel?.setConnectedColor()
         }
         
-        self.socket.on("disconnect") {data, ack in
+        self.socket!.on("disconnect") {data, ack in
+            self.connectedNetworkLabel?.setDisconnectedColor()
+            self.connectedNetworkLabel = nil
             self.serverNameHeading.text = "CONNECT TO"
         }
         
-        self.socket.on("error") {data, ack in
+        self.socket!.on("error") {data, ack in
             self.serverNameHeading.text = "CONNECT TO"
         }
     }
     
-    func setupScrollViewForAvailableNetworks() {
+    private func setupScrollViewForAvailableNetworks() {
         
         var numberOfNetworks = CGFloat(self.availableNetworks!.count)
         
@@ -154,22 +178,29 @@ class PlaybackController:
         
         for (index, network) in enumerate(self.availableNetworks!) {
             var label = NetworkLabel(frame: CGRectMake(CGFloat(index) * scrollViewWidth, CGFloat(index), scrollViewWidth, scrollViewHeight))
-            label.text = network["serverName"]?.uppercaseString
-
+            label.text = network.name!.uppercaseString
+            let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("networkLabelTapped:"))
+            label.addGestureRecognizer(tapRecognizer)
+            
             self.availableNetworksScrollView.addSubview(label)
         }
         
         self.availableNetworksScrollView.contentSize = CGSizeMake(numberOfNetworks * scrollViewWidth, scrollViewHeight)
+        
+        self.availableNetworksScrollView.hidden = false
     }
     
-    
-    // MARK : ScrollView Delegates
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        let pageWidth:CGFloat = CGRectGetWidth(scrollView.frame)
-        var currentPage:CGFloat = floor((scrollView.contentOffset.x-pageWidth/2)/pageWidth)+1
-        // Change the indicator
-        self.availableNetworksPageControl.currentPage = Int(currentPage);
+    func networkLabelTapped(sender: UITapGestureRecognizer) {
+        var label = sender.view as? NetworkLabel
+        if self.connectedNetworkLabel == label {
+            self.socket?.disconnect(fast: false)
+        } else {
+            self.connectedNetworkLabel = sender.view as? NetworkLabel
+            self.connectedNetworkLabel?.setConnectingColor()
+            self.connectToSocket()
+        }
+        
     }
+    
 }
 

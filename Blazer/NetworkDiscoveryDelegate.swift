@@ -10,17 +10,13 @@ import Foundation
 
 class NetworkServiceDelegate : NSObject, NSNetServiceDelegate {
     
-    func netServiceWillResolve(sender: NSNetService) {
-        println("netServiceWillResolve:\(sender)");
-        println("addresses: \(sender.addresses)")
-    }
+    func netServiceWillResolve(sender: NSNetService) {}
     
     func netService(sender: NSNetService, didNotResolve errorDict: [NSObject : AnyObject]) {
         println("netServiceDidNotResolve:\(sender)");
     }
     
     func netServiceDidResolveAddress(sender: NSNetService) {
-        println("netServiceDidResolve:\(sender)");
         var address = self.translateSockAddress(sender)
         var userInfo = [
             "address": address!,
@@ -30,9 +26,7 @@ class NetworkServiceDelegate : NSObject, NSNetServiceDelegate {
         
     }
     
-    func netServiceDidStop(sender: NSNetService) {
-        println("netServiceDidStopService:\(sender)");
-    }
+    func netServiceDidStop(sender: NSNetService) {}
     
     private func translateSockAddress(sender: NSNetService) -> String? {
         if let data: AnyObject = sender.addresses?.first {
@@ -57,9 +51,7 @@ class NetworkServiceBrowserDelegate : NSObject, NSNetServiceBrowserDelegate {
     var serviceDelegate: NetworkServiceDelegate?
     var services: [NSNetService]?
     
-    func netServiceBrowserWillSearch(aNetServiceBrowser: NSNetServiceBrowser) {
-        println("starting search")
-    }
+    func netServiceBrowserWillSearch(aNetServiceBrowser: NSNetServiceBrowser) {}
     
     func netServiceBrowser(netServiceBrowser: NSNetServiceBrowser, didFindService netService: NSNetService,
         moreComing moreServicesComing: Bool) {

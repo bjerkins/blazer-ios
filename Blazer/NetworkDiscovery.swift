@@ -8,12 +8,16 @@
 
 import Foundation
 
+protocol NetworkFoundDelegate {
+    func didFindNetwork(network: AvailableNetwork)
+}
 
 class NetworkDiscovery: NSObject {
     
     var netServiceBrowser: NSNetServiceBrowser?
     var networkServiceBrowserDelegate:NetworkServiceBrowserDelegate?
     var discovereNnetworkAddress: String?
+    var delegate: NetworkFoundDelegate?
     
     override init() {
         self.netServiceBrowser = NSNetServiceBrowser()
@@ -26,10 +30,10 @@ class NetworkDiscovery: NSObject {
     }
     
     func networkDiscovered(notification: NSNotification) {
-        var address = notification.userInfo!["address"] as! String
-        var server = notification.userInfo!["serverName"] as! String
-        
-        println("server: \(server) - address: \(address)")
+        var availableNetwork = AvailableNetwork()
+        availableNetwork.address = notification.userInfo!["address"] as? String
+        availableNetwork.name = notification.userInfo!["serverName"] as? String
+        self.delegate!.didFindNetwork(availableNetwork)
     }
     
     func discover() {

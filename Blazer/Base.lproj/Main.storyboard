@@ -103,16 +103,22 @@
                                 <color key="textColor" red="0.89411764709999997" green="0.87450980389999999" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K22-hT-cK0">
+                            <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K22-hT-cK0">
                                 <rect key="frame" x="61" y="473" width="199" height="40"/>
                                 <color key="backgroundColor" red="0.21176470589999999" green="0.2666666667" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Fwh-yG-lPK"/>
                                 </constraints>
                             </scrollView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="qaD-DV-tqN">
-                                <rect key="frame" x="141" y="521" width="39" height="37"/>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="qaD-DV-tqN">
+                                <rect key="frame" x="161" y="521" width="0.0" height="0.0"/>
                             </pageControl>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Looking for servers..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zAf-pA-RTr" userLabel="Searching Label">
+                                <rect key="frame" x="104" y="486" width="113" height="14"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                <color key="textColor" red="0.89411764709999997" green="0.87450980389999999" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.21176470588235294" green="0.26666666666666666" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -130,12 +136,15 @@
                             <constraint firstAttribute="centerX" secondItem="AMY-8o-GvO" secondAttribute="centerX" id="kp6-lx-QtD"/>
                             <constraint firstAttribute="centerX" secondItem="dd1-C2-MmM" secondAttribute="centerX" id="lAi-Uf-tAo"/>
                             <constraint firstItem="K22-hT-cK0" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="45" id="ldJ-JM-Gpc"/>
+                            <constraint firstItem="zAf-pA-RTr" firstAttribute="top" secondItem="AMY-8o-GvO" secondAttribute="bottom" constant="30" id="okE-Zs-dGd"/>
+                            <constraint firstAttribute="centerX" secondItem="zAf-pA-RTr" secondAttribute="centerX" constant="-0.5" id="ylX-PA-dlm"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="availableNetworksPageControl" destination="qaD-DV-tqN" id="Bzf-au-Y7i"/>
                         <outlet property="availableNetworksScrollView" destination="K22-hT-cK0" id="CRU-Wf-ibm"/>
+                        <outlet property="availableNetworksSearchingLabel" destination="zAf-pA-RTr" id="Q9l-Va-Tbu"/>
                         <outlet property="nowPlayingHeadingLabel" destination="dd1-C2-MmM" id="kc9-zY-Qia"/>
                         <outlet property="serverNameHeading" destination="AMY-8o-GvO" id="l9A-Ro-MNb"/>
                     </connections>
