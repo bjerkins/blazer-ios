@@ -27,6 +27,8 @@ class PlaybackController:
     var networkDiscovery: NetworkDiscovery?
     var availableNetworks: [AvailableNetwork]?
     var connectedNetworkLabel: NetworkLabel?
+    var session: SPTSession?
+    var shit: String?
     
 
     // MARK: outlets
@@ -79,11 +81,12 @@ class PlaybackController:
     
     func spotifySessionInitialized(session: SPTSession) {
         
-        if self.player == nil { // instantiate player
-            self.player = SPTAudioStreamingController(clientId: spotifyAuthentication.clientID)
-            self.player?.playbackDelegate = self
-            self.player?.diskCache = SPTDiskCache(capacity: 1024 * 1024 * 64)
-        }
+        self.session = session
+        self.shit = "Yeah"
+        
+        self.player = SPTAudioStreamingController(clientId: SPTAuth.defaultInstance().clientID)
+        self.player?.playbackDelegate = self
+        self.player?.diskCache = SPTDiskCache(capacity: 1024 * 1024 * 64)
         
         // login the player
         self.player?.loginWithSession(session, callback: { (error: NSError!) in
@@ -91,6 +94,7 @@ class PlaybackController:
                 println("oh shit")
             } else {
                 println("spotify player logged in")
+                self.player?.setIsPlaying(false, callback: nil)
             }
 
         })

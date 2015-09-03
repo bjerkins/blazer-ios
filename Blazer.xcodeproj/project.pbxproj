@@ -123,7 +123,6 @@
 				18E485111B8FBD9A00E0EDE9 /* Blazer */,
 				18E485291B8FBD9A00E0EDE9 /* BlazerTests */,
 				18E485101B8FBD9A00E0EDE9 /* Products */,
-				18E485361B8FBFB900E0EDE9 /* Spotify.framework */,
 				1D2A449012F60ACBD579B91E /* Pods */,
 				6F7E6C56E0F70261897B5BED /* Frameworks */,
 			);
@@ -199,6 +198,7 @@
 		6F7E6C56E0F70261897B5BED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18E485361B8FBFB900E0EDE9 /* Spotify.framework */,
 				77CAA2BA65CEC4493F821FB9 /* Pods_Blazer.framework */,
 			);
 			name = Frameworks;

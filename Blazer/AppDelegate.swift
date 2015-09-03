@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var loginDelegate: SpotifyLoginDelegate?
     var loginViewController: UIViewController?
-    var playbackController: UIViewController?
+    var playbackController: PlaybackController?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.loginDelegate = self.window?.rootViewController as? PlaybackController
         
         let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        self.playbackController = storyBoard.instantiateInitialViewController() as? UIViewController
+        self.playbackController = storyBoard.instantiateInitialViewController() as? PlaybackController
         self.loginViewController = storyBoard.instantiateViewControllerWithIdentifier("LoginViewController") as? UIViewController
         
         self.window?.rootViewController = playbackController
@@ -34,21 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var auth = SPTAuth.defaultInstance()
         
         if auth.session == nil || !auth.session.isValid() { // no token received
-           // self.playbackController?.presentViewController(self.loginViewController!, animated: true, completion: nil)
+            self.playbackController?.presentViewController(self.loginViewController!, animated: true, completion: nil)
         }
         
-        let BM_DOMAIN = ""
-        let BM_TYPE = "_http._tcp."
-        
-        /// Net service browser.
-//        nsb = NSNetServiceBrowser()
-//        nsbdel = NetworkDiscoveryDelegate() //see bellow
-//        nsb?.delegate = nsbdel
-//        nsb?.searchForServicesOfType(BM_TYPE, inDomain: BM_DOMAIN)
-//        
-//        var discovery = NetworkDiscovery()
-//        discovery.discover()
-//        
         return true
     }
 
@@ -81,9 +69,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if error != nil {
                 println("oh noes!")
             }
-            
-            self.loginDelegate?.spotifySessionInitialized(session)
-            self.playbackController?.dismissViewControllerAnimated(true, completion: nil)
+            var player = SPTAudioStreamingController(clientId: SPTAuth.defaultInstance().clientID)
+            player?.loginWithSession(session, callback: { (error: NSError!) in
+                if error != nil {
+                    println("oh shit")
+                } else {
+                    println("spotify player logged in")
+                    player?.playbackDelegate = self.playbackController
+                    player?.diskCache = SPTDiskCache(capacity: 1024 * 1024 * 64)
+                    self.playbackController?.dismissViewControllerAnimated(true, completion: nil)
+                    self.playbackController?.player = player
+                }
+                
+            })
+
         }
         
         if SPTAuth.defaultInstance().canHandleURL(url) {
