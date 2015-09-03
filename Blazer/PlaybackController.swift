@@ -14,7 +14,8 @@ class PlaybackController:
     UIViewController,
     SpotifyLoginDelegate,
     SPTAudioStreamingDelegate,
-    SPTAudioStreamingPlaybackDelegate {
+    SPTAudioStreamingPlaybackDelegate,
+    UIScrollViewDelegate {
     
     // MARK: Properties
     
@@ -30,12 +31,8 @@ class PlaybackController:
     
     @IBOutlet weak var nowPlayingHeadingLabel: UILabel!
     @IBOutlet weak var serverNameHeading: UILabel!
-    @IBOutlet weak var serverNameLabel: UILabel!
-    @IBOutlet weak var connectionIndicatorImage: UIImageView!
-    
-    @IBOutlet weak var availableNetworksScrollViewContainer: UIView!
-    @IBOutlet weak var availableNetworksContentView: UIView!
-    @IBOutlet weak var availableNetworksContentViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var availableNetworksScrollView: UIScrollView!
+    @IBOutlet weak var availableNetworksPageControl: UIPageControl!
     
     // MARK: Overrides
     
@@ -58,7 +55,11 @@ class PlaybackController:
             ["address": "10.0.1.3:3000", "serverName": "Death Star"]
         ]
         
+        self.availableNetworksPageControl.numberOfPages = self.availableNetworks!.count
+        
         self.setupScrollViewForAvailableNetworks()
+        
+        self.availableNetworksScrollView.delegate = self
     }
     
     
@@ -133,22 +134,42 @@ class PlaybackController:
         
         self.socket.on("connect") {data, ack in
             self.serverNameHeading.text = "CONNECTED TO"
-            self.connectionIndicatorImage.hidden = false
         }
         
         self.socket.on("disconnect") {data, ack in
             self.serverNameHeading.text = "CONNECT TO"
-            self.connectionIndicatorImage.hidden = true
         }
         
         self.socket.on("error") {data, ack in
             self.serverNameHeading.text = "CONNECT TO"
-            self.connectionIndicatorImage.hidden = true
         }
     }
     
     func setupScrollViewForAvailableNetworks() {
+        
+        var numberOfNetworks = CGFloat(self.availableNetworks!.count)
+        
+        let scrollViewWidth:CGFloat = self.availableNetworksScrollView.frame.width
+        let scrollViewHeight:CGFloat = self.availableNetworksScrollView.frame.height
+        
+        for (index, network) in enumerate(self.availableNetworks!) {
+            var label = NetworkLabel(frame: CGRectMake(CGFloat(index) * scrollViewWidth, CGFloat(index), scrollViewWidth, scrollViewHeight))
+            label.text = network["serverName"]?.uppercaseString
 
+            self.availableNetworksScrollView.addSubview(label)
+        }
+        
+        self.availableNetworksScrollView.contentSize = CGSizeMake(numberOfNetworks * scrollViewWidth, scrollViewHeight)
+    }
+    
+    
+    // MARK : ScrollView Delegates
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let pageWidth:CGFloat = CGRectGetWidth(scrollView.frame)
+        var currentPage:CGFloat = floor((scrollView.contentOffset.x-pageWidth/2)/pageWidth)+1
+        // Change the indicator
+        self.availableNetworksPageControl.currentPage = Int(currentPage);
     }
 }
 

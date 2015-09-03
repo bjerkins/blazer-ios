@@ -19,6 +19,7 @@
 		18E4852D1B8FBD9A00E0EDE9 /* BlazerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E4852C1B8FBD9A00E0EDE9 /* BlazerTests.swift */; };
 		18E485371B8FBFB900E0EDE9 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E485361B8FBFB900E0EDE9 /* Spotify.framework */; };
 		18E485391B8FC02800E0EDE9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E485381B8FC02800E0EDE9 /* AVFoundation.framework */; };
+		18EAE60B1B988020000D5626 /* NetworkLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EAE60A1B988020000D5626 /* NetworkLabel.swift */; };
 		A76EBEC76C527ED9EC8F4C5E /* Pods_Blazer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CAA2BA65CEC4493F821FB9 /* Pods_Blazer.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		18E485361B8FBFB900E0EDE9 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		18E485381B8FC02800E0EDE9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		18E4853A1B8FC10800E0EDE9 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		18EAE60A1B988020000D5626 /* NetworkLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkLabel.swift; sourceTree = "<group>"; };
 		389B129B217244D3F6EAB4A8 /* Pods-Blazer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blazer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Blazer/Pods-Blazer.release.xcconfig"; sourceTree = "<group>"; };
 		77CAA2BA65CEC4493F821FB9 /* Pods_Blazer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blazer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2078E1F1517D62174AD74FE /* Pods-Blazer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blazer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Blazer/Pods-Blazer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			children = (
 				18E4851F1B8FBD9A00E0EDE9 /* LaunchScreen.xib */,
 				18E4851A1B8FBD9A00E0EDE9 /* Main.storyboard */,
+				18EAE60A1B988020000D5626 /* NetworkLabel.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				186AEAC51B94690400B32E8C /* LoginController.swift in Sources */,
 				18177C921B9618850033E824 /* NetworkDiscovery.swift in Sources */,
 				18E485151B8FBD9A00E0EDE9 /* AppDelegate.swift in Sources */,
+				18EAE60B1B988020000D5626 /* NetworkLabel.swift in Sources */,
 				18177C961B962E5C0033E824 /* NetworkDiscoveryDelegate.swift in Sources */,
 				18E485171B8FBD9A00E0EDE9 /* PlaybackController.swift in Sources */,
 			);
