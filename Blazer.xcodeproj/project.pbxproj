@@ -10,31 +10,22 @@
 		1816E1241B91A1C500EECD2E /* SpotifyLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816E1231B91A1C500EECD2E /* SpotifyLogin.swift */; };
 		18177C921B9618850033E824 /* NetworkDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18177C911B9618850033E824 /* NetworkDiscovery.swift */; };
 		18177C961B962E5C0033E824 /* NetworkDiscoveryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18177C951B962E5C0033E824 /* NetworkDiscoveryDelegate.swift */; };
+		1820FCD31D14825500B8C235 /* Pods_Blazer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CAA2BA65CEC4493F821FB9 /* Pods_Blazer.framework */; };
 		186AEAC51B94690400B32E8C /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AEAC41B94690400B32E8C /* LoginController.swift */; };
 		18E485151B8FBD9A00E0EDE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E485141B8FBD9A00E0EDE9 /* AppDelegate.swift */; };
 		18E485171B8FBD9A00E0EDE9 /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E485161B8FBD9A00E0EDE9 /* PlaybackController.swift */; };
 		18E4851C1B8FBD9A00E0EDE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18E4851A1B8FBD9A00E0EDE9 /* Main.storyboard */; };
 		18E4851E1B8FBD9A00E0EDE9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18E4851D1B8FBD9A00E0EDE9 /* Images.xcassets */; };
 		18E485211B8FBD9A00E0EDE9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E4851F1B8FBD9A00E0EDE9 /* LaunchScreen.xib */; };
-		18E4852D1B8FBD9A00E0EDE9 /* BlazerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E4852C1B8FBD9A00E0EDE9 /* BlazerTests.swift */; };
 		18E485371B8FBFB900E0EDE9 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E485361B8FBFB900E0EDE9 /* Spotify.framework */; };
 		18E485391B8FC02800E0EDE9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E485381B8FC02800E0EDE9 /* AVFoundation.framework */; };
 		18EAE60B1B988020000D5626 /* NetworkLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EAE60A1B988020000D5626 /* NetworkLabel.swift */; };
 		18EAE60D1B988F05000D5626 /* AvailableNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EAE60C1B988F05000D5626 /* AvailableNetwork.swift */; };
-		A76EBEC76C527ED9EC8F4C5E /* Pods_Blazer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CAA2BA65CEC4493F821FB9 /* Pods_Blazer.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		18E485271B8FBD9A00E0EDE9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 18E485071B8FBD9A00E0EDE9 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 18E4850E1B8FBD9A00E0EDE9;
-			remoteInfo = Blazer;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		180EBC711D147E690009F283 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/Blazer-dpsxfpbrejcjokgsrooxvdixqbau/Build/Products/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
+		180EBC731D147F860009F283 /* SocketIOClientSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIOClientSwift.framework; path = "../../../Library/Developer/Xcode/DerivedData/Blazer-dpsxfpbrejcjokgsrooxvdixqbau/Build/Products/Debug-iphoneos/SocketIOClientSwift.framework"; sourceTree = "<group>"; };
 		1816E1231B91A1C500EECD2E /* SpotifyLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyLogin.swift; sourceTree = "<group>"; };
 		18177C911B9618850033E824 /* NetworkDiscovery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDiscovery.swift; sourceTree = "<group>"; };
 		18177C951B962E5C0033E824 /* NetworkDiscoveryDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDiscoveryDelegate.swift; sourceTree = "<group>"; };
@@ -46,9 +37,6 @@
 		18E4851B1B8FBD9A00E0EDE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		18E4851D1B8FBD9A00E0EDE9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		18E485201B8FBD9A00E0EDE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		18E485261B8FBD9A00E0EDE9 /* BlazerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlazerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		18E4852B1B8FBD9A00E0EDE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		18E4852C1B8FBD9A00E0EDE9 /* BlazerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlazerTests.swift; sourceTree = "<group>"; };
 		18E485361B8FBFB900E0EDE9 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		18E485381B8FC02800E0EDE9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		18E4853A1B8FC10800E0EDE9 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
@@ -66,14 +54,7 @@
 			files = (
 				18E485391B8FC02800E0EDE9 /* AVFoundation.framework in Frameworks */,
 				18E485371B8FBFB900E0EDE9 /* Spotify.framework in Frameworks */,
-				A76EBEC76C527ED9EC8F4C5E /* Pods_Blazer.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		18E485231B8FBD9A00E0EDE9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				1820FCD31D14825500B8C235 /* Pods_Blazer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,9 +100,7 @@
 		18E485061B8FBD9A00E0EDE9 = {
 			isa = PBXGroup;
 			children = (
-				18E485381B8FC02800E0EDE9 /* AVFoundation.framework */,
 				18E485111B8FBD9A00E0EDE9 /* Blazer */,
-				18E485291B8FBD9A00E0EDE9 /* BlazerTests */,
 				18E485101B8FBD9A00E0EDE9 /* Products */,
 				1D2A449012F60ACBD579B91E /* Pods */,
 				6F7E6C56E0F70261897B5BED /* Frameworks */,
@@ -132,7 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				18E4850F1B8FBD9A00E0EDE9 /* Blazer.app */,
-				18E485261B8FBD9A00E0EDE9 /* BlazerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -161,23 +139,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		18E485291B8FBD9A00E0EDE9 /* BlazerTests */ = {
-			isa = PBXGroup;
-			children = (
-				18E4852C1B8FBD9A00E0EDE9 /* BlazerTests.swift */,
-				18E4852A1B8FBD9A00E0EDE9 /* Supporting Files */,
-			);
-			path = BlazerTests;
-			sourceTree = "<group>";
-		};
-		18E4852A1B8FBD9A00E0EDE9 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				18E4852B1B8FBD9A00E0EDE9 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		18EAE60E1B988F0C000D5626 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,6 +159,9 @@
 		6F7E6C56E0F70261897B5BED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18E485381B8FC02800E0EDE9 /* AVFoundation.framework */,
+				180EBC731D147F860009F283 /* SocketIOClientSwift.framework */,
+				180EBC711D147E690009F283 /* SwiftyJSON.framework */,
 				18E485361B8FBFB900E0EDE9 /* Spotify.framework */,
 				77CAA2BA65CEC4493F821FB9 /* Pods_Blazer.framework */,
 			);
@@ -227,40 +191,20 @@
 			productReference = 18E4850F1B8FBD9A00E0EDE9 /* Blazer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		18E485251B8FBD9A00E0EDE9 /* BlazerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 18E485331B8FBD9A00E0EDE9 /* Build configuration list for PBXNativeTarget "BlazerTests" */;
-			buildPhases = (
-				18E485221B8FBD9A00E0EDE9 /* Sources */,
-				18E485231B8FBD9A00E0EDE9 /* Frameworks */,
-				18E485241B8FBD9A00E0EDE9 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				18E485281B8FBD9A00E0EDE9 /* PBXTargetDependency */,
-			);
-			name = BlazerTests;
-			productName = BlazerTests;
-			productReference = 18E485261B8FBD9A00E0EDE9 /* BlazerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		18E485071B8FBD9A00E0EDE9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = someNerves;
 				TargetAttributes = {
 					18E4850E1B8FBD9A00E0EDE9 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = FR3Q6968TX;
-					};
-					18E485251B8FBD9A00E0EDE9 = {
-						CreatedOnToolsVersion = 6.4;
-						TestTargetID = 18E4850E1B8FBD9A00E0EDE9;
+						DevelopmentTeam = 7BRWVQ96LA;
 					};
 				};
 			};
@@ -278,7 +222,6 @@
 			projectRoot = "";
 			targets = (
 				18E4850E1B8FBD9A00E0EDE9 /* Blazer */,
-				18E485251B8FBD9A00E0EDE9 /* BlazerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -291,13 +234,6 @@
 				18E4851C1B8FBD9A00E0EDE9 /* Main.storyboard in Resources */,
 				18E485211B8FBD9A00E0EDE9 /* LaunchScreen.xib in Resources */,
 				18E4851E1B8FBD9A00E0EDE9 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		18E485241B8FBD9A00E0EDE9 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,23 +303,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		18E485221B8FBD9A00E0EDE9 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				18E4852D1B8FBD9A00E0EDE9 /* BlazerTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		18E485281B8FBD9A00E0EDE9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 18E4850E1B8FBD9A00E0EDE9 /* Blazer */;
-			targetProxy = 18E485271B8FBD9A00E0EDE9 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		18E4851A1B8FBD9A00E0EDE9 /* Main.storyboard */ = {
@@ -426,6 +346,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -441,7 +362,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -480,7 +401,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
@@ -501,6 +422,7 @@
 				);
 				INFOPLIST_FILE = Blazer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "someNerves.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Blazer/Bridging-Header.h";
@@ -520,43 +442,10 @@
 				);
 				INFOPLIST_FILE = Blazer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "someNerves.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Blazer/Bridging-Header.h";
-			};
-			name = Release;
-		};
-		18E485341B8FBD9A00E0EDE9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BlazerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blazer.app/Blazer";
-			};
-			name = Debug;
-		};
-		18E485351B8FBD9A00E0EDE9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BlazerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Blazer.app/Blazer";
 			};
 			name = Release;
 		};
@@ -577,15 +466,6 @@
 			buildConfigurations = (
 				18E485311B8FBD9A00E0EDE9 /* Debug */,
 				18E485321B8FBD9A00E0EDE9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		18E485331B8FBD9A00E0EDE9 /* Build configuration list for PBXNativeTarget "BlazerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				18E485341B8FBD9A00E0EDE9 /* Debug */,
-				18E485351B8FBD9A00E0EDE9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

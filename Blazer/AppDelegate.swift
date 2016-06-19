@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
         
         // check spotify auth token
-        var auth = SPTAuth.defaultInstance()
+        let auth = SPTAuth.defaultInstance()
         
         if auth.session == nil || !auth.session.isValid() { // no token received
             self.playbackController?.presentViewController(self.loginViewController!, animated: true, completion: nil)
@@ -63,18 +63,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         
-        var callBack: SPTAuthCallback = { (error: NSError!, session: SPTSession!) -> () in
+        let callBack: SPTAuthCallback = { (error: NSError!, session: SPTSession!) -> () in
             if error != nil {
-                println("oh noes!")
+                print("oh noes!")
             }
-            var player = SPTAudioStreamingController(clientId: SPTAuth.defaultInstance().clientID)
+            let player = SPTAudioStreamingController(clientId: SPTAuth.defaultInstance().clientID)
             player?.loginWithSession(session, callback: { (error: NSError!) in
                 if error != nil {
-                    println("oh shit")
+                    print("oh shit")
                 } else {
-                    println("spotify player logged in")
+                    print("spotify player logged in")
                     player?.playbackDelegate = self.playbackController
                     player?.diskCache = SPTDiskCache(capacity: 1024 * 1024 * 64)
                     self.playbackController?.dismissViewControllerAnimated(true, completion: nil)

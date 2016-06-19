@@ -26,11 +26,16 @@ class NetworkDiscovery: NSObject {
         
         super.init()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "networkDiscovered:", name: "networkFound", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: #selector(NetworkDiscovery.networkDiscovered(_:)),
+            name: "networkFound",
+            object: nil
+        )
     }
     
     func networkDiscovered(notification: NSNotification) {
-        var availableNetwork = AvailableNetwork()
+        let availableNetwork = AvailableNetwork()
         availableNetwork.address = notification.userInfo!["address"] as? String
         availableNetwork.name = notification.userInfo!["serverName"] as? String
         self.delegate!.didFindNetwork(availableNetwork)

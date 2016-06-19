@@ -1,13 +1,13 @@
 PODS:
-  - Socket.IO-Client-Swift (2.4.3)
-  - SwiftyJSON (2.2.1)
+  - Socket.IO-Client-Swift (6.1.3)
+  - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
-  - Socket.IO-Client-Swift (~> 2.4.3)
-  - SwiftyJSON (~> 2.2.1)
+  - Socket.IO-Client-Swift
+  - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Socket.IO-Client-Swift: 4a7170cb0572a8490588ea1bc9e76f5dafc8150d
-  SwiftyJSON: ae2d0a3d68025d136602a33c4ee215091ced3e33
+  Socket.IO-Client-Swift: 00eb528b3eaa0c0385e54b8c6c00e36abc992257
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.39.0

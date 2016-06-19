@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Socket_IO_Client_Swift
+import SocketIOClientSwift
 import SwiftyJSON
 
 class PlaybackController:
@@ -70,7 +70,7 @@ class PlaybackController:
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let pageWidth:CGFloat = CGRectGetWidth(scrollView.frame)
-        var currentPage:CGFloat = floor((scrollView.contentOffset.x-pageWidth/2)/pageWidth)+1
+        let currentPage:CGFloat = floor((scrollView.contentOffset.x-pageWidth/2)/pageWidth)+1
         // Change the indicator
         self.availableNetworksPageControl.currentPage = Int(currentPage);
     }
@@ -91,9 +91,9 @@ class PlaybackController:
         // login the player
         self.player?.loginWithSession(session, callback: { (error: NSError!) in
             if error != nil {
-                println("oh shit")
+                print("oh shit")
             } else {
-                println("spotify player logged in")
+                print("spotify player logged in")
                 self.player?.setIsPlaying(false, callback: nil)
             }
 
@@ -103,63 +103,69 @@ class PlaybackController:
     // MARK: SPTAudioStreamingDelegate and SPTAudioStreamingPlaybackDelegate methods
     
     func audioStreaming(audioStreaming: SPTAudioStreamingController!, didFailToPlayTrack trackUri: NSURL!) {
-        println("audio stream: failed to play track")
+        print("audio stream: failed to play track")
     }
     
     func audioStreaming(audioStreaming: SPTAudioStreamingController!, didReceiveMessage message: String!) {
-        println("audio stream: message received")
+        print("audio stream: message received")
     }
     
     func audioStreaming(audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
-        println("audio stream: playback status changed")
+        print("audio stream: playback status changed")
     }
     
 
     // MARK: Private helper functions
 
     private func connectToSocket() {
-        var network = self.availableNetworks![self.availableNetworksPageControl.currentPage]
-        self.socket = SocketIOClient(socketURL: network.address!)
+        let network = self.availableNetworks![self.availableNetworksPageControl.currentPage]
+        let url = NSURL(string: network.address!)!
+        self.socket = SocketIOClient(socketURL: url)
         self.setupSocketHandlers()
         self.socket!.connect()
-        self.socket!.nsp = "client"
-        self.socket!.joinNamespace()
+        self.socket!.joinNamespace("/client")
     }
     
     private func setupSocketHandlers() {
         
         self.socket!.on("playtrack") {data, ack in
-            let json = JSON(data![0])
+            let json = JSON(data[0])
             let track = json["track"].string
             
-            var auth = SPTAuth.defaultInstance()
+            let auth = SPTAuth.defaultInstance()
+
+            do {
+                let trackRequest = try SPTTrack.createRequestForTrack(NSURL(string: track!),
+                    withAccessToken: auth.session.accessToken,
+                    market: nil
+                )
+                
+                let callback = {(error: NSError!, response: NSURLResponse!, data: NSData!) in
+                    if error != nil {
+                        print("oh noes")
+                    }
+                    let track = try SPTTrack(fromData: data, withResponse: response)
+                    self.player?.playURIs([track.uri], fromIndex: 0, callback: nil)
+
+                } as! SPTRequestDataCallback
+                
+                
+                SPTRequest.sharedHandler().performRequest(
+                    trackRequest,
+                    callback: callback
+                )
+                
+            } catch {
+                print (error)
+            }
             
-            var trackRequest = SPTTrack.createRequestForTrack(
-                NSURL(string: track!),
-                withAccessToken: auth.session.accessToken,
-                market: nil,
-                error: nil
-            )
-            
-            SPTRequest.sharedHandler().performRequest(trackRequest, callback: { (error: NSError!, response: NSURLResponse!, data: NSData!) in
-                
-                if error != nil {
-                    println("oh noes")
-                }
-                
-                var track = SPTTrack(fromData: data, withResponse: response, error: nil)
-                
-                if error != nil {
-                    println("oh noes")
-                }
-                
-                self.player?.playURIs([track.uri], fromIndex: 0, callback: nil)
-            })
         }
         
         self.socket!.on("connect") {data, ack in
             self.serverNameHeading.text = "CONNECTED TO"
             self.connectedNetworkLabel?.setConnectedColor()
+            
+            self.socket!.emit("yeah")
         }
         
         self.socket!.on("disconnect") {data, ack in
@@ -177,15 +183,20 @@ class PlaybackController:
     
     private func setupScrollViewForAvailableNetworks() {
         
-        var numberOfNetworks = CGFloat(self.availableNetworks!.count)
+        let numberOfNetworks = CGFloat(self.availableNetworks!.count)
         
         let scrollViewWidth:CGFloat = self.availableNetworksScrollView.frame.width
         let scrollViewHeight:CGFloat = self.availableNetworksScrollView.frame.height
         
-        for (index, network) in enumerate(self.availableNetworks!) {
-            var label = NetworkLabel(frame: CGRectMake(CGFloat(index) * scrollViewWidth, CGFloat(index), scrollViewWidth, scrollViewHeight))
+        for (index, network) in (self.availableNetworks!).enumerate() {
+            let label = NetworkLabel(
+                frame: CGRectMake(CGFloat(index) * scrollViewWidth, CGFloat(index), scrollViewWidth, scrollViewHeight)
+            )
             label.text = network.name!.uppercaseString
-            let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("networkLabelTapped:"))
+            let tapRecognizer = UITapGestureRecognizer(
+                target: self,
+                action: #selector(PlaybackController.networkLabelTapped(_:))
+            )
             label.addGestureRecognizer(tapRecognizer)
             
             self.availableNetworksScrollView.addSubview(label)
@@ -197,9 +208,9 @@ class PlaybackController:
     }
     
     func networkLabelTapped(sender: UITapGestureRecognizer) {
-        var label = sender.view as? NetworkLabel
+        let label = sender.view as? NetworkLabel
         if self.connectedNetworkLabel == label {
-            self.socket?.disconnect(fast: false)
+            self.socket?.disconnect()
         } else {
             self.connectedNetworkLabel = sender.view as? NetworkLabel
             self.connectedNetworkLabel?.setConnectingColor()

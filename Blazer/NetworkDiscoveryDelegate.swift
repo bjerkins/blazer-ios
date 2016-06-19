@@ -12,14 +12,14 @@ class NetworkServiceDelegate : NSObject, NSNetServiceDelegate {
     
     func netServiceWillResolve(sender: NSNetService) {}
     
-    func netService(sender: NSNetService, didNotResolve errorDict: [NSObject : AnyObject]) {
-        println("netServiceDidNotResolve:\(sender)");
+    func netService(sender: NSNetService, didNotResolve errorDict: [String : NSNumber]) {
+        print("netServiceDidNotResolve:\(sender)");
     }
     
     func netServiceDidResolveAddress(sender: NSNetService) {
-        var address = self.translateSockAddress(sender)
-        var userInfo = [
-            "address": address!,
+        let address = self.translateSockAddress(sender)
+        let userInfo = [
+            "address": "http://\(address!)",
             "serverName": sender.name
         ]
         NSNotificationCenter.defaultCenter().postNotificationName("networkFound", object: nil, userInfo: userInfo)
@@ -36,8 +36,8 @@ class NetworkServiceDelegate : NSObject, NSNetServiceDelegate {
             if Int32(storage.ss_family) == AF_INET {
                 let addr4 = withUnsafePointer(&storage) { UnsafePointer<sockaddr_in>($0).memory }
                 
-                var address = String(CString: inet_ntoa(addr4.sin_addr), encoding: NSASCIIStringEncoding)
-                var port = sender.port
+                let address = String(CString: inet_ntoa(addr4.sin_addr), encoding: NSASCIIStringEncoding)
+                let port = sender.port
                 
                 return "\(address!):\(port)"
             }
@@ -71,12 +71,12 @@ class NetworkServiceBrowserDelegate : NSObject, NSNetServiceBrowserDelegate {
     }
     
     func netServiceBrowser(netServiceBrowser: NSNetServiceBrowser,
-        didNotSearch errorInfo: [NSObject : AnyObject]) {
-            println("netServiceDidNotSearch")
+        didNotSearch errorInfo: [String : NSNumber]) {
+            print("netServiceDidNotSearch")
     }
     
     func netServiceBrowserDidStopSearch(netServiceBrowser: NSNetServiceBrowser) {
-        println("netServiceDidStopSearch")
+        print("netServiceDidStopSearch")
     }
     
 }

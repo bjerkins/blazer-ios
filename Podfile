@@ -6,8 +6,8 @@ use_frameworks!
 
 target 'Blazer' do
 
-pod 'Socket.IO-Client-Swift', '~> 2.4.3' # Or latest version
-pod 'SwiftyJSON', '~> 2.2.1'
+pod 'Socket.IO-Client-Swift'
+pod 'SwiftyJSON'
 
 end
 
