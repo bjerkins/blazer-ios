@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1816E1241B91A1C500EECD2E /* SpotifyLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1816E1231B91A1C500EECD2E /* SpotifyLogin.swift */; };
 		18177C921B9618850033E824 /* NetworkDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18177C911B9618850033E824 /* NetworkDiscovery.swift */; };
 		18177C961B962E5C0033E824 /* NetworkDiscoveryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18177C951B962E5C0033E824 /* NetworkDiscoveryDelegate.swift */; };
 		1820FCD31D14825500B8C235 /* Pods_Blazer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77CAA2BA65CEC4493F821FB9 /* Pods_Blazer.framework */; };
@@ -26,7 +25,6 @@
 /* Begin PBXFileReference section */
 		180EBC711D147E690009F283 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/Blazer-dpsxfpbrejcjokgsrooxvdixqbau/Build/Products/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		180EBC731D147F860009F283 /* SocketIOClientSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIOClientSwift.framework; path = "../../../Library/Developer/Xcode/DerivedData/Blazer-dpsxfpbrejcjokgsrooxvdixqbau/Build/Products/Debug-iphoneos/SocketIOClientSwift.framework"; sourceTree = "<group>"; };
-		1816E1231B91A1C500EECD2E /* SpotifyLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyLogin.swift; sourceTree = "<group>"; };
 		18177C911B9618850033E824 /* NetworkDiscovery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDiscovery.swift; sourceTree = "<group>"; };
 		18177C951B962E5C0033E824 /* NetworkDiscoveryDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDiscoveryDelegate.swift; sourceTree = "<group>"; };
 		186AEAC41B94690400B32E8C /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -61,14 +59,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1816E1251B91A1CC00EECD2E /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				1816E1231B91A1C500EECD2E /* SpotifyLogin.swift */,
-			);
-			name = Protocols;
-			sourceTree = "<group>";
-		};
 		1816E1261B91A1F800EECD2E /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,10 +81,18 @@
 		18177C901B9618700033E824 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				182E0B221D19A2280091ED2C /* Network Discovery */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		182E0B221D19A2280091ED2C /* Network Discovery */ = {
+			isa = PBXGroup;
+			children = (
 				18177C911B9618850033E824 /* NetworkDiscovery.swift */,
 				18177C951B962E5C0033E824 /* NetworkDiscoveryDelegate.swift */,
 			);
-			name = Services;
+			name = "Network Discovery";
 			sourceTree = "<group>";
 		};
 		18E485061B8FBD9A00E0EDE9 = {
@@ -122,7 +120,6 @@
 				18177C901B9618700033E824 /* Services */,
 				1816E1271B91A20F00EECD2E /* Controllers */,
 				1816E1261B91A1F800EECD2E /* Views */,
-				1816E1251B91A1CC00EECD2E /* Protocols */,
 				18E485121B8FBD9A00E0EDE9 /* Supporting Files */,
 			);
 			path = Blazer;
@@ -292,7 +289,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1816E1241B91A1C500EECD2E /* SpotifyLogin.swift in Sources */,
 				186AEAC51B94690400B32E8C /* LoginController.swift in Sources */,
 				18177C921B9618850033E824 /* NetworkDiscovery.swift in Sources */,
 				18E485151B8FBD9A00E0EDE9 /* AppDelegate.swift in Sources */,

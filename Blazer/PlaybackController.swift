@@ -12,7 +12,6 @@ import SwiftyJSON
 
 class PlaybackController:
     UIViewController,
-    SpotifyLoginDelegate,
     SPTAudioStreamingDelegate,
     SPTAudioStreamingPlaybackDelegate,
     UIScrollViewDelegate,
@@ -27,8 +26,13 @@ class PlaybackController:
     var networkDiscovery: NetworkDiscovery?
     var availableNetworks: [AvailableNetwork]?
     var connectedNetworkLabel: NetworkLabel?
-    var session: SPTSession?
-    var shit: String?
+    var synched: Bool?
+    
+    var spotifySession: SPTSession? {
+        didSet {
+            spotifySessionDidSet(spotifySession!)
+        }
+    }
     
 
     // MARK: outlets
@@ -39,8 +43,8 @@ class PlaybackController:
     @IBOutlet weak var availableNetworksPageControl: UIPageControl!
     @IBOutlet weak var availableNetworksSearchingLabel: UILabel!
 
-    // MARK: Overrides
     
+    // MARK: Overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +59,7 @@ class PlaybackController:
         self.availableNetworksScrollView.delegate = self
     }
     
+    
     // MARK: NetworkFound Delegate
     
     func didFindNetwork(network: AvailableNetwork) {
@@ -64,9 +69,8 @@ class PlaybackController:
         self.setupScrollViewForAvailableNetworks()
     }
     
-
-    // MARK: ScrollView Delegates
     
+    // MARK: ScrollView Delegates
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let pageWidth:CGFloat = CGRectGetWidth(scrollView.frame)
@@ -75,30 +79,6 @@ class PlaybackController:
         self.availableNetworksPageControl.currentPage = Int(currentPage);
     }
     
-    
-    // MARK: SpotifyLoginDelegate methods
-    
-    
-    func spotifySessionInitialized(session: SPTSession) {
-        
-        self.session = session
-        self.shit = "Yeah"
-        
-        self.player = SPTAudioStreamingController(clientId: SPTAuth.defaultInstance().clientID)
-        self.player?.playbackDelegate = self
-        self.player?.diskCache = SPTDiskCache(capacity: 1024 * 1024 * 64)
-        
-        // login the player
-        self.player?.loginWithSession(session, callback: { (error: NSError!) in
-            if error != nil {
-                print("oh shit")
-            } else {
-                print("spotify player logged in")
-                self.player?.setIsPlaying(false, callback: nil)
-            }
-
-        })
-    }
     
     // MARK: SPTAudioStreamingDelegate and SPTAudioStreamingPlaybackDelegate methods
     
@@ -112,10 +92,37 @@ class PlaybackController:
     
     func audioStreaming(audioStreaming: SPTAudioStreamingController!, didChangePlaybackStatus isPlaying: Bool) {
         print("audio stream: playback status changed")
+        if self.synched == true || isPlaying == false {
+            return
+        }
+        
+        self.player?.setIsPlaying(false, callback: nil)
+        self.socket!.emit("ready", [])
+    }
+    
+    func audioStreaming(audioStreaming: SPTAudioStreamingController!, didStartPlayingTrack trackUri: NSURL!) {
+        print("audio stream started")
     }
     
 
     // MARK: Private helper functions
+    
+    private func spotifySessionDidSet(session: SPTSession) {
+        if self.player == nil {
+            self.player = SPTAudioStreamingController(clientId: SPTAuth.defaultInstance().clientID)
+            self.player!.playbackDelegate = self
+            self.player!.diskCache = SPTDiskCache(capacity: 1024 * 1024 * 64)
+        }
+        
+        self.player!.loginWithSession(session, callback: { (error: NSError!) in
+            if error != nil {
+                print("failed to login player")
+            } else {
+                print("spotify player logged in")
+            }
+        })
+
+    }
 
     private func connectToSocket() {
         let network = self.availableNetworks![self.availableNetworksPageControl.currentPage]
@@ -128,53 +135,41 @@ class PlaybackController:
     
     private func setupSocketHandlers() {
         
-        self.socket!.on("playtrack") {data, ack in
+        self.socket!.on("prepare:playtrack") { data, ack in
+            
+            self.synched = false
+            
             let json = JSON(data[0])
             let track = json["track"].string
-            
-            let auth = SPTAuth.defaultInstance()
-
-            do {
-                let trackRequest = try SPTTrack.createRequestForTrack(NSURL(string: track!),
-                    withAccessToken: auth.session.accessToken,
-                    market: nil
-                )
                 
-                let callback = {(error: NSError!, response: NSURLResponse!, data: NSData!) in
-                    if error != nil {
-                        print("oh noes")
-                    }
-                    let track = try SPTTrack(fromData: data, withResponse: response)
-                    self.player?.playURIs([track.uri], fromIndex: 0, callback: nil)
-
-                } as! SPTRequestDataCallback
+            let trackURI = NSURL(string: track!)
                 
-                
-                SPTRequest.sharedHandler().performRequest(
-                    trackRequest,
-                    callback: callback
-                )
-                
-            } catch {
-                print (error)
-            }
-            
+            self.player?.playURIs([trackURI!], fromIndex: 0, callback: {(error: NSError!) in
+                if error != nil {
+                    print("failed to play track")
+                }
+            })
         }
         
-        self.socket!.on("connect") {data, ack in
+        self.socket!.on("playtrack") { data, ack in
+            self.synched = true
+            self.player?.setIsPlaying(true, callback: nil)
+        }
+        
+        self.socket!.on("connect") { data, ack in
             self.serverNameHeading.text = "CONNECTED TO"
             self.connectedNetworkLabel?.setConnectedColor()
             
             self.socket!.emit("yeah")
         }
         
-        self.socket!.on("disconnect") {data, ack in
+        self.socket!.on("disconnect") { data, ack in
             self.connectedNetworkLabel?.setDisconnectedColor()
             self.connectedNetworkLabel = nil
             self.serverNameHeading.text = "CONNECT TO"
         }
         
-        self.socket!.on("error") {data, ack in
+        self.socket!.on("error") { data, ack in
             self.serverNameHeading.text = "CONNECT TO"
             self.connectedNetworkLabel?.setDisconnectedColor()
             self.connectedNetworkLabel = nil

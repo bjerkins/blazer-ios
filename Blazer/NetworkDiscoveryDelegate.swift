@@ -22,8 +22,8 @@ class NetworkServiceDelegate : NSObject, NSNetServiceDelegate {
             "address": "http://\(address!)",
             "serverName": sender.name
         ]
-        NSNotificationCenter.defaultCenter().postNotificationName("networkFound", object: nil, userInfo: userInfo)
         
+        NSNotificationCenter.defaultCenter().postNotificationName("networkFound", object: nil, userInfo: userInfo)
     }
     
     func netServiceDidStop(sender: NSNetService) {}
@@ -42,6 +42,7 @@ class NetworkServiceDelegate : NSObject, NSNetServiceDelegate {
                 return "\(address!):\(port)"
             }
         }
+        
         return nil
     }
 }
